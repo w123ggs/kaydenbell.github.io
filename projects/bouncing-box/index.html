@@ -5,6 +5,14 @@
 	<title>Bouncing Box</title>
 	<script src="jquery.min.js"></script>
 	<style>
+		body {
+ 			background-image: url("images/loding.png");
+ 			background-color: #cccccc;
+			 -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+		}
 		.box {
 			width: 70px;
 			height: 70px;
@@ -15,7 +23,7 @@
 			display: block;
 			position: absolute;
 			top: 100px;
-			left: 0px;  /* <--- Change me! */
+			left: 150px;  /* <--- Change me! */
 		}
 		.board{
 			height: 100vh;
@@ -48,8 +56,9 @@
 			box.on('click', handleBoxClick);
 
 			// moves the Box to a new position on the screen along the X-Axis
-			function moveBoxTo(newPositionX) {
+			function moveBoxTo(newPositionX, newPositionY) {
 				box.css("left", newPositionX);
+				box.css("top", newPositionY);
 			}
 
 			// changes the text displayed on the Box
@@ -62,17 +71,33 @@
 			//////////////////////////////////////////////////////////////////
 			
 			// TODO 2 - Variable declarations 
-			
+			var positionX = 0;
+			var positionY = 0;
+			var points = 0;
+			var speed = 10;
+			var speedY = 10;
+			var boardHeight = jQuery(window).height();
 
-			
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
 			it should move the Box to a new location. If the box drifts off the screen
 			turn it around! 
 			*/
 			function update() {
-				
-
+				//Increase positionX by 10
+				positionX = positionX + speed;
+				positionY = positionY + speedY;
+				moveBoxTo(positionX, positionY);
+				if (positionX > boardWidth ) {
+					speed = -speed;
+				}else if (positionX < 0) {
+					speed = -speed;
+				}else if (positionY > boardHeight){
+					speedY = -speedY;
+				}else if (positionY < 0){
+					speedY = -speedY;
+				}
+				console.log(speed);
 			};
 
 			/* 
@@ -81,8 +106,25 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
-				
+				var randNum = Math.random() * boardWidth;
+				var randNumY = Math.random() * boardHeight;
+				positionX = randNum;
+				positionY = randNumY;
 
+				// your code to increase the points variable by 1
+				points = points + 1;
+				changeBoxText(points);
+
+				// Increases the valuse of speed by 3
+				if (speed > 0) {
+					speed = speed + 3;
+				}else if (speed < 0) {
+					speed = speed - 3;
+				}else if (speedY > 0){
+					speedY = speedY + 3;
+				}else if (speedY < 0){
+					speedY = speedY - 3;
+				}
 
 			};
 		})();
