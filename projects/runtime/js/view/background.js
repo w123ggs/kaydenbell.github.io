@@ -29,6 +29,7 @@ var background = function (window) {
         var tree;
         var buildings = [];
         var ufo;
+        
      
         // called at the start of game and whenever the page is resized
         // add objects for display in background. draws each image added to the background once
@@ -77,15 +78,16 @@ var background = function (window) {
             ufo = draw.bitmap("img/ufo.png"); //bitmap draws this image and stores it in the variable ufo
             ufo.x = canvasWidth - 200; //assigns an x value to ufo
             ufo.y = groundY - 500; //assigns an y value to ufo
-            ufo.scaleX = 0.5;
-            ufo.scaleY = 0.5;
+            ufo.scaleX = 0.5; //changes the size of the ufo x value
+            ufo.scaleY = 0.5;//changes the size of the ufo y value
             background.addChild(ufo); //adds ufo as a child to background to make it visable
             
         } // end of render function - DO NOT DELETE
         
+        //gives a number between min and max including min and max
         function getRandomInt(min, max) {
-            min = Math.ceil(min);
-            max = Math.floor(max);
+            min = Math.ceil(min); //gives the min valuse a stoppig point
+            max = Math.floor(max); //gives the max valuse a stoppig point
             return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
           }
 
@@ -98,14 +100,16 @@ var background = function (window) {
             var groundY = ground.y;
             
             // TODO 4: Part 2 - Move the tree!
-            tree.x = tree.x - 1;
+            tree.x = tree.x - 1; //makes the tree move
 
+            //if statement that tells the tree what to do
             if (tree.x < -210){
                 tree.x = canvasWidth
             }
 
-            ufo.x = ufo.x - 2.5;
+            ufo.x = ufo.x - 2.5; //makes the ufo move
 
+            //if statement that tells the ufo what to do
             if (ufo.x < -210){
                 ufo.x = canvasWidth
                 ufo.y = getRandomInt(0, groundY - 175);
